@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <link href="../resources/css/style.css" rel="stylesheet">
+        <script src="../resources/js/ajax.js"></script>
+        <script>
+            window.onload = function () {
+                setContent('$currentTab');
+            };
+        </script>
+        <title>$pageTitle</title>
+    </head>
+    <body>
+        <header class="menu-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="lang-bar">
+                        <a href="javascript: setLocale('ru_RU');">
+                            <img src="resources/img/ru.png" class="flag-icon"/>
+                        </a>
+                        <a href="javascript: setLocale('en_US');">
+                            <img src="resources/img/us.png" class="flag-icon"/>
+                        </a>
+                        <a href="javascript: setLocale('es_ES');">
+                            <img src="resources/img/es.png" class="flag-icon"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="container">
+            <div id="base-info" class="row">
+                <div class="cols col-4-1">
+                    <img id="product-photo" src="$productPhoto">
+                </div>
+                <div class="cols col-4-3" id="product-short-description-col">
+                    <h2 id="product-title">$productTitle</h2>
+                    <h4>Price: <span id="product-price">$productPrice</span></h4>
+                    <br/>
+                    <a id="btnAddToCart" class="bordered" href="#">$addToCart</a>
+                    <p id="product-short-description">
+                        $productShortDescription
+                    </p>
+                </div>
+            </div>
+            <div id="tabbed-pane" class="clear">
+                <ul id="tabs" class="row">
+                    <li><a href="javascript: setContent('reviews');">$reviews</a></li>
+                    <li><a href="javascript: setContent('comments');">$comments</a></li>
+                </ul>
+                <div id="content">
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+        </footer>
+    </body>
+</html>

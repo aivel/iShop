@@ -1,0 +1,154 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+>> target/context * 100%
+e.g.: 650 / 960 * 100% = 67%
+(100% / 16px)
+100% / 1.5em - font size
+*/
+/* 
+    Created on : Sep 11, 2014, 6:07:29 AM
+    Author     : Max
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+}
+footer {
+    clear: both;
+}
+.menu-bar {
+    min-height: 40px;
+}
+.floating-block-left {
+    display: block;
+    float: left;
+}
+.floating-block-right {
+    display: block;
+    float: right;
+}
+.container {
+    width: 70%;
+    height: 40px;
+}
+.container.row {
+}
+.container,
+.center-block {
+    margin: 0 auto;
+}
+.container .cols {
+    float: left;
+    margin: 0 0 1em;
+    padding: 0 0 1em;
+    text-align: center;
+}
+.container .cols.col-4-1 {
+    width: 25%;
+}
+.container .cols.col-4-2 {
+    width: 50%;
+}
+.container .cols.col-4-3 {
+    width: 75%;
+}
+.container .cols.col-4-4 {
+    width: 100%;
+}
+.lang-bar {
+    float: right;
+    margin-left: 20px;
+}
+.lang-bar a, a:active, a:hover, a:visited, a:link {
+    text-decoration: none;
+}
+a:visited {
+    color: #333333;
+}
+a:link {
+    color: brown;
+}
+.flag-icon {
+    padding-top: 5px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+}
+#base-info {
+    overflow: hidden;
+    margin-top: 10px;
+    display: block;
+}
+#tabbed-pane {
+}
+#product-photo {
+    width: 300px;
+    height: 420px;
+    margin: 0 10px;
+    border: solid 2px tomato;
+}
+#product-price  {
+    color: brown;
+}
+#product-short-description-col {
+}
+#product-short-description {
+    margin-top: 10px;
+}
+.topNavButtons,
+#tabs {
+    list-style: none;
+}
+.topNavButtons li,
+#tabs li {
+    float: left;
+    margin: 10px 10px;
+}
+#content {
+    margin-left: 10px;
+}
+.container:before,
+.container:after,
+.row:before,
+.row:after,
+.clear:before,
+.clear:after {
+    content: " ";
+    display: table;
+}
+
+.container:after,
+.row:after,
+.clear:after {
+    clear: both;
+}
+.button,
+.bordered {
+    border: solid 1px brown;
+    padding: 4px;
+    margin-bottom: 3px;
+}
+.commentText {
+    display: block;
+    float: left;
+}
+#img404 {
+    margin: 0 auto;
+    width: 300px;
+}
+.margin-top-5 {
+    margin-top: 5px;
+}
+.filter-input {
+    margin-top: 9px;
+    margin-left: 17px;
+}
+.little-cover {
+    height: 80px;
+    margin-right: 8px;
+}
