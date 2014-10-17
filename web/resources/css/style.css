@@ -144,6 +144,9 @@ a:link {
 .margin-top-5 {
     margin-top: 5px;
 }
+.margin-left-5 {
+    margin-left: 5px;
+}
 .filter-input {
     margin-top: 9px;
     margin-left: 17px;
@@ -151,4 +154,11 @@ a:link {
 .little-cover {
     height: 80px;
     margin-right: 8px;
+}
+#authForm {
+    width: 280px;
+    margin: 0 auto;
+}
+.hidden {
+    display: none;
 }

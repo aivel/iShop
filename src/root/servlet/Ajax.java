@@ -3,6 +3,7 @@ package root.servlet;
 import root.db.dao.Factory;
 import root.db.model.*;
 import root.db.model.Cart;
+import root.db.model.Order;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -96,6 +97,35 @@ public class Ajax extends HttpServlet {
                     if (book != null)
                         cart.addProduct(id, amount, book.getTitle(), book.getAuthorName(),
                                 book.getCoverUrl(), book.getPrice(), book.getPriceLocale());
+                    break;
+                }
+                case "makeOrder": {
+                    final HttpSession session = request.getSession(true);
+                    final Cart cart = (Cart)session.getAttribute("cart");
+                    final User user = (User) session.getAttribute("user");
+                    final List<Product> products = cart.getProducts();
+                    final Boolean courier = Boolean.parseBoolean(request.getParameter("courier"));
+                    final String deliveryAddress = request.getParameter("deliveryAddress");
+                    final Long when = System.currentTimeMillis();
+                    final Order order = new Order();
+
+                    long totalAmount = 0;
+
+                    for (final Product product: products) {
+                        totalAmount += product.getAmount();
+                    }
+
+                    order.setAmount(totalAmount);
+                    order.setBuyerId(user.getId());
+                    order.setCost(cart.getTotalPrice());
+                    order.setCourier(courier);
+                    order.setDeliveryAddress(deliveryAddress);
+                    order.setWhenOrdered( when );
+                    order.setCostLocale( cart.getCurrentLocale() );
+
+                    Factory.getInstance().getOrderDAO().addOrder(order);
+
+                    cart.clear();
                     break;
                 }
                 default:

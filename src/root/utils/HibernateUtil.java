@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import root.db.model.Book;
 import root.db.model.Comment;
+import root.db.model.Order;
 import root.db.model.User;
 
 import java.util.Map;
@@ -28,6 +29,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(Book.class);
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Comment.class);
+            configuration.addAnnotatedClass(Order.class);
 
             serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
             ourSessionFactory = configuration.buildSessionFactory(serviceRegistry);

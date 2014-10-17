@@ -1,6 +1,8 @@
 package root.filter;
 
+import root.db.dao.Factory;
 import root.db.model.Cart;
+import root.db.model.User;
 import root.utils.Utils;
 
 import javax.servlet.*;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 
 /**
@@ -23,30 +26,44 @@ public class CommonFilter implements Filter {
 
     private void doFilter(final HttpServletRequest request, final HttpServletResponse response,
                           final FilterChain filterChain) throws IOException, ServletException {
-        HttpSession session = request.getSession(true);
+        final HttpSession session = request.getSession(true);
 
         if (session.isNew()) {
-            session.setAttribute("currentLocale", request.getLocale().toString());
+            final String localeString = Utils.fulfillLocale(request.getLocale()).toString();
+            session.setAttribute("currentLocale", localeString);
             session.setAttribute("currentTab", context.getInitParameter("defaultTab"));
+            session.setAttribute("defaultTab", context.getInitParameter("defaultTab"));
         }
 
-        if (session.getAttribute("cart") != null)
-            ((Cart)session.getAttribute("cart")).setCurrentLocale(
-                    Utils.fulfillLocale(
-                            Utils.stringToLocale((String) session.getAttribute("currentLocale"))
-                    ).toString());
+        final String localeString = Utils.fulfillLocale(Utils.stringToLocale((String) session.getAttribute("currentLocale"))).toString();
 
-        String localeString = (String) session.getAttribute("currentLocale");
+        if (session.getAttribute("cart") != null) {
+            ((Cart)session.getAttribute("cart")).setCurrentLocale(localeString);
+        }
 
         if (localeString != null) {
             Locale locale = Utils.fulfillLocale(Utils.stringToLocale(localeString));
             request.setAttribute("currentLocale", locale);
         }
 
-        if (request.isUserInRole("user"))
+        if (request.isUserInRole("user")) {
             session.setAttribute("auth", true);
-        else
+            final String username = request.getUserPrincipal().getName();
+            session.setAttribute("userName", username);
+
+            User user = null;
+
+            try {
+                user = Factory.getInstance().getUserDAO().getUserByName( username );
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            session.setAttribute("user", user);
+        } else {
             request.setAttribute("auth", false);
+            session.setAttribute("userName", "");
+        }
 
         filterChain.doFilter(request, response);
     }
@@ -54,7 +71,6 @@ public class CommonFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         doFilter((HttpServletRequest)servletRequest, (HttpServletResponse)servletResponse, filterChain);
-
     }
 
     @Override

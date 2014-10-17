@@ -8,7 +8,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="cart" scope="session" class="root.db.model.Cart" />
 <fmt:setLocale value="${currentLocale}"/>
 <fmt:setBundle basename="root.i18n.lang" var="lang"/>
 <html>
@@ -29,7 +28,7 @@
                 <div class="bordered row">
                     <img class="little-cover floating-block-left" src="${product.coverUrl}"/>
                     <div class="floating-block-left">
-                        <span><a href="/product?id=${product.id}">${product.title}(${product.amount})</a></span>
+                        <span><a href="/product?id=${product.id}">${product.title}</a></span>
                         <h4>${product.authorName}</h4>
                         <h5><fmt:message key="PRICE" bundle="${lang}"/>:
                             <span id="product-price">
@@ -38,9 +37,11 @@
                                 <fmt:setLocale value="${currentLocale}"/>
                             </span>
                         </h5>
+                        <h5><fmt:message key="AMOUNT" bundle="${lang}"/>: ${product.amount}</h5>
                     </div>
                 </div>
             </c:forEach>
+            <br/>
             <div class="floating-block-right">
                 <span>
                     <fmt:message key="TOTAL_PRICE" bundle="${lang}"/>:
@@ -48,6 +49,9 @@
                         <fmt:formatNumber value="${cart.totalPrice}" type="currency"/>
                     </span>
                 </span>
+                <a class="button" href="/order">
+                    <fmt:message key="ORDER" bundle="${lang}"/>
+                </a>
             </div>
         </c:if>
     </main>

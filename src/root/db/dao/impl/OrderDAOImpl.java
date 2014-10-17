@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package root.db.dao.impl;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Expression;
-import root.db.dao.model.UserDAO;
-import root.db.model.User;
+import root.db.dao.model.OrderDAO;
+import root.db.model.Order;
 import root.utils.HibernateUtil;
 
 import java.sql.SQLException;
@@ -19,18 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Max
+ * Created by Max on 10/16/2014.
  */
-public class UserDAOImpl implements UserDAO {
-
+public class OrderDAOImpl implements OrderDAO {
     @Override
-    public void addUser(final User user) throws SQLException {
+    public void addOrder(final Order order) throws SQLException {
         Session session = null;
         try {
             session = HibernateUtil.getSession();
             session.beginTransaction();
-            session.saveOrUpdate(user);
+            session.saveOrUpdate(order);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -41,12 +33,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUser(final User user) throws SQLException {
+    public void updateOrder(final Order order) throws SQLException {
         Session session = null;
         try {
             session = HibernateUtil.getSession();
             session.beginTransaction();
-            session.update(user);
+            session.update(order);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -58,37 +50,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserById(final Long id) throws SQLException {
+    public Order getOrderById(final Long id) throws SQLException {
         Session session = null;
-        User user = null;
+        Order order = null;
         try {
             session = HibernateUtil.getSession();
-            user = (User) session.load(User.class, id);
-            Hibernate.initialize(user);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-        
-        return user;
-    }
-
-    @Override
-    public User getUserByName(final String name) throws SQLException {
-        Session session = null;
-        User user = null;
-        List users;
-        try {
-            session = HibernateUtil.getSession();
-            users = session.createCriteria(User.class)
-                    .add(Expression.like("username", name)).list();
-            Hibernate.initialize(users);
-
-            if (!users.isEmpty())
-                user = (User)users.get(0);
+            order = (Order) session.load(Order.class, id);
+            Hibernate.initialize(order);
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
@@ -97,17 +65,17 @@ public class UserDAOImpl implements UserDAO {
             }
         }
 
-        return user;
+        return order;
     }
 
     @Override
-    public List getAllUsers() throws SQLException {
+    public List getAllOrders() throws SQLException {
         Session session = null;
-        List<User> users = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
         try {
             session = HibernateUtil.getSession();
-            users = session.createCriteria(User.class).list();
-            Hibernate.initialize(users);
+            orders = session.createCriteria(Order.class).list();
+            Hibernate.initialize(orders);
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
@@ -115,17 +83,17 @@ public class UserDAOImpl implements UserDAO {
                 session.close();
             }
         }
-        
-        return users;
+
+        return orders;
     }
 
     @Override
-    public void deleteUser(final User user) throws SQLException {
+    public void deleteOrder(final Order order) throws SQLException {
         Session session = null;
         try {
             session = HibernateUtil.getSession();
             session.beginTransaction();
-            session.delete(user);
+            session.delete(order);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -135,5 +103,25 @@ public class UserDAOImpl implements UserDAO {
             }
         }
     }
-    
+
+    @Override
+    public List<Order> getAllOrdersByBuyerId(final Long buyerId) throws SQLException {
+        Session session = null;
+        List<Order> orders = new ArrayList<>();
+        try {
+            session = HibernateUtil.getSession();
+            orders = session.createCriteria(Order.class)
+                    .add(Expression.eq("buyerId", buyerId))
+                    .list();
+            Hibernate.initialize(orders);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return orders;
+    }
 }

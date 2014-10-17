@@ -8,9 +8,11 @@ package root.db.dao;
 
 import root.db.dao.impl.BookDAOImpl;
 import root.db.dao.impl.CommentDAOImpl;
+import root.db.dao.impl.OrderDAOImpl;
 import root.db.dao.impl.UserDAOImpl;
 import root.db.dao.model.BookDAO;
 import root.db.dao.model.CommentDAO;
+import root.db.dao.model.OrderDAO;
 import root.db.dao.model.UserDAO;
 
 /**
@@ -21,8 +23,9 @@ public class Factory {
     private static BookDAO bookDAO = null;
     private static CommentDAO commentDAO = null;
     private static UserDAO userDAO = null;
+    private static OrderDAO orderDAO = null;
     private static Factory instance = null;
-    
+
     public static synchronized Factory getInstance() {
         if (instance == null)
             instance = new Factory();
@@ -49,5 +52,12 @@ public class Factory {
             userDAO = new UserDAOImpl();
         
         return userDAO;
+    }
+
+    public OrderDAO getOrderDAO() {
+        if (orderDAO == null)
+            orderDAO = new OrderDAOImpl();
+
+        return orderDAO;
     }
 }

@@ -80,4 +80,9 @@ public class Cart implements Serializable {
     public String getCurrentLocale() {
         return currentLocale;
     }
+
+    public void clear() {
+        products.clear();
+        totalPrice = 0;
+    }
 }

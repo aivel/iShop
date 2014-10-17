@@ -27,7 +27,10 @@ public class User implements Serializable {
     private String password;
     
     @Column
-    private Long balance;
+    private Double balance;
+
+    @Column
+    private String balanceLocale;
 
     public Long getId() {
         return id;
@@ -68,15 +71,22 @@ public class User implements Serializable {
     /**
      * @return the balance
      */
-    public Long getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
     /**
      * @param balance the balance to set
      */
-    public void setBalance(Long balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
-    
+
+    public String getBalanceLocale() {
+        return balanceLocale;
+    }
+
+    public void setBalanceLocale(String balanceLocale) {
+        this.balanceLocale = balanceLocale;
+    }
 }

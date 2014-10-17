@@ -6,9 +6,10 @@
 
 package root.db.dao.model;
 
+import root.db.model.User;
+
 import java.sql.SQLException;
 import java.util.List;
-import root.db.model.User;
 
 /**
  *
@@ -18,6 +19,7 @@ public interface UserDAO {
     public void addUser(final User user) throws SQLException;
     public void updateUser(final User user) throws SQLException;
     public User getUserById(final Long id) throws SQLException;
+    public User getUserByName(final String name) throws SQLException;
     public List getAllUsers() throws SQLException;
     public void deleteUser(final User user) throws SQLException;
 }

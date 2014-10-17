@@ -21,7 +21,7 @@
 <body>
     <%@include file="parts/commonHeader.jsp"%>
     <main class="container">
-        <form method="post" action="j_security_check">
+        <form method="post" action="j_security_check" id="authForm" class="bordered"><!--/auth-->
             <table>
                 <tr>
                     <td>

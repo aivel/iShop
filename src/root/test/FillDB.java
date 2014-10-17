@@ -75,9 +75,9 @@ public class FillDB {
         User u2 = new User();
         User u3 = new User();
         
-        u1.setBalance(999142345437L);
-        u2.setBalance(0L);
-        u3.setBalance(42513L);
+        u1.setBalance(999142345437.9);
+        u2.setBalance(0d);
+        u3.setBalance(42513d);
         
         u1.setUsername("admin");
         u2.setUsername("Anon");
@@ -86,7 +86,11 @@ public class FillDB {
         u1.setPassword( String.valueOf( "qwerty".hashCode() ));
         u2.setPassword( String.valueOf( "123456".hashCode() ));
         u3.setPassword( String.valueOf( "PASSWORD".hashCode() ));
-        
+
+        u1.setBalanceLocale("en_US");
+        u2.setBalanceLocale("es_ES");
+        u3.setBalanceLocale("ru_RU");
+
         
         Factory.getInstance().getUserDAO().addUser(u1);
         Factory.getInstance().getUserDAO().addUser(u2);
@@ -94,7 +98,7 @@ public class FillDB {
     }
     
     public static void main(String[] args) throws SQLException {
-        addBooks();
+//        addBooks();
 //        addUsers();
 //        addComments();
     }

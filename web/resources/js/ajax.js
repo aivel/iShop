@@ -80,3 +80,15 @@ function addToCart(amount, productId) {
                 ; // everything is ok
     });
 }
+
+function fixedEncodeURIComponent(str){
+    return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
+}
+
+function makeOrder(courier, deliveryAddress) {
+    _.ajaxGet('/ajax?req=makeOrder&courier=' + courier + '&deliveryAddress=' + fixedEncodeURIComponent(deliveryAddress), function () {
+        if (_.xmlhttp.readyState !== 4) return;
+        if (_.xmlhttp.status === 200)
+            window.location = '/profile';
+    });
+}
